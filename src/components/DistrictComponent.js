@@ -2,8 +2,9 @@ import React from 'react';
 import {Table} from 'reactstrap';
 import { Loading } from './LoadingComponent';
 
-function Home(props)  {
-if (props.crops.isLoading) {
+
+function District(props)  {
+if (props.districts.isLoading) {
         console.log("here");
         return(
             <div className="container">
@@ -13,26 +14,27 @@ if (props.crops.isLoading) {
             </div>
         );
     }
-    else if (props.crops.errMess) {
+    else if (props.districts.errMess) {
         return(
             <div className="container">
                 <div className="row"> 
                     <div className="col-12">
-                        <h4>{props.crops.errMess}</h4>
+                        <h4>{props.districts.errMess}</h4>
                     </div>
                 </div>
             </div>
         );
     }
     var a = 0
-    const cropsdata = props.crops.crops.map(crop=>{
+    const distsdata = props.districts.districts.map(dist=>{
         a++;
         return(
             <tr>
                 
                 <th>{a}</th>
-                <td>{crop.name}</td>
-                <td>{crop.crop_type}</td>
+                <td>{dist.name}</td>
+                <td>{dist.area}</td>
+                <td>{dist.pradesh_no}</td>
             </tr>
             );
         });
@@ -40,7 +42,7 @@ if (props.crops.isLoading) {
 
         <div className="container">
             <div className="col-12">
-            <h3>Crops</h3>
+            <h3>Districts</h3>
             <hr />
             </div>  
             <Table dark>
@@ -48,15 +50,16 @@ if (props.crops.isLoading) {
                     <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Crop Type</th>
+                    <th>Area</th>
+                    <th>Pradesh No.</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {cropsdata}
+                    {distsdata}
                 </tbody>
             </Table>
         </div>
     );
 }
 
-export default Home;
+export default District;

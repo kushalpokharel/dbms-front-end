@@ -2,25 +2,29 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import{Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import Home from './HomeComponent';
+import District from './DistrictComponent';
+import Production from './ProductionComponent';
 import Header from './HeaderComponent';
-import Footer from './FooterComponent';
-import {fetchCrops} from '../redux/actions';
+import {fetchCrops,fetchDistricts,fetchProduction} from '../redux/actions';
+
 
 const mapDispatchToProps = dispatch =>{
   return{
 
     fetchCrops : ()=>{(dispatch(fetchCrops()))},
 
-    // fetchDistricts: () => dispatch(fetchDistricts()),
-    // fetchProdution: () => dispatch(fetchProduction()),
+    fetchDistricts: () => dispatch(fetchDistricts()),
+    
+    fetchProduction: () => dispatch(fetchProduction()),
 
    }
 }
 
 const mapStateToProps = state => {
   return {
-    // district : state.district,
+    district : state.districts,
     crops : state.crops,
+    production : state.production
   }
 }
 
@@ -32,36 +36,42 @@ class Main extends Component{
 
   componentDidMount() {
     this.props.fetchCrops();
-    alert(this.props.crops);
-    // this.props.fetchDistricts();
-    // this.props.fetchProduction();
+    // alert(this.props.crops);
+    this.props.fetchDistricts();
+    // alert(this.props.district);
+    this.props.fetchProduction();
   }
-
+  // var cropsid = 
   render(){
 
     const HomePage = ()=>{
       return(
-        <Home crops  = {this.props.crops}
-        // <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
-        // dishesLoading={this.props.dishes.isLoading}
-        // dishesErrMess={this.props.dishes.errMess}
-        // promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
-        // promoLoading={this.props.promotions.isLoading}
-        // promoErrMess={this.props.promotions.errMess}
-        // leader={this.props.leaders.filter((leader) => leader.featured)[0]}
-        />
+        <Home crops  = {this.props.crops} />
       )
     }
 
+    const DistPage = ()=>{
+      return(
+        <District districts  = {this.props.district}/>
+      )
+    }
+
+    const ProdPage = ()=>{
+      return(
+        <Production production = {this.props.production}/>
+
+      )
+    }
+    
     return (
       <div>
         <Header/>
           <Switch>
             <Route path='/home' component={HomePage}/>
-
+            <Route path='/districts' component={DistPage}/>
+            <Route path='/production' component={ProdPage}/>
             <Redirect to="/home" />
           </Switch>        
-        <Footer/>
       </div>
     );
   }

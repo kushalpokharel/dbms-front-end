@@ -2,8 +2,9 @@ import React from 'react';
 import {Table} from 'reactstrap';
 import { Loading } from './LoadingComponent';
 
-function Home(props)  {
-if (props.crops.isLoading) {
+
+function Production(props)  {
+if (props.production.isLoading) {
         console.log("here");
         return(
             <div className="container">
@@ -13,26 +14,29 @@ if (props.crops.isLoading) {
             </div>
         );
     }
-    else if (props.crops.errMess) {
+    else if (props.production.errMess) {
         return(
             <div className="container">
                 <div className="row"> 
                     <div className="col-12">
-                        <h4>{props.crops.errMess}</h4>
+                        <h4>{props.production.errMess}</h4>
                     </div>
                 </div>
             </div>
         );
     }
     var a = 0
-    const cropsdata = props.crops.crops.map(crop=>{
+    const distsdata = props.production.production.map(prod=>{
         a++;
         return(
             <tr>
                 
                 <th>{a}</th>
-                <td>{crop.name}</td>
-                <td>{crop.crop_type}</td>
+                <td>{prod.year}</td>
+                <td>{prod.amount}</td>
+                <td>{prod.harvest_area}</td>
+                <td>{prod.crop}</td>
+                <td>{prod.district}</td>
             </tr>
             );
         });
@@ -40,23 +44,26 @@ if (props.crops.isLoading) {
 
         <div className="container">
             <div className="col-12">
-            <h3>Crops</h3>
+            <h3>Production</h3>
             <hr />
             </div>  
             <Table dark>
                 <thead>
                     <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Crop Type</th>
+                    <th>Year</th>
+                    <th>Amount</th>
+                    <th>Harvest Area</th>
+                    <th>Crop</th>
+                    <th>District</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {cropsdata}
+                    {distsdata}
                 </tbody>
             </Table>
         </div>
     );
 }
 
-export default Home;
+export default Production;

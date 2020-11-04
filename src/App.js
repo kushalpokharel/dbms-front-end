@@ -10,7 +10,7 @@ const store  = ConfigureStore();
 function App() {
   return (
     <div className="App"> 
-      return (
+      
       <Provider store = {store}>
         <BrowserRouter>
           <div>
@@ -18,7 +18,6 @@ function App() {
           </div>
         </BrowserRouter>
       </Provider>
-    );  
     </div>
   );
 }
