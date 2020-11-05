@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 import {baseUrl} from './baseurl'
+import {Cookies} from 'js-cookie'
 
 export const fetchCrops = () => (dispatch)=>{
   dispatch(cropsLoading(true));
@@ -31,6 +32,42 @@ export const addCrops =(crop)=>({
   type:ActionTypes.ADD_CROPS,
   payload:crop
 });
+
+export const concatCrops =(crop)=>(dispatch)=>{
+  // const csrftoken = Cookies.get('x-csrftoken');
+  dispatch(cropsLoading(true));
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': "application/json" },
+    body: JSON.stringify({ name: crop.name, crop_type: crop.type })
+  };
+  return fetch(baseUrl+'crop/',requestOptions)
+  .then(response=> {
+    console.log(response);
+    if(response.ok){
+      return response;
+    }
+    else{
+      var error = new Error('Error ' + response.status + ': ' + response.statusText);
+      error.response = response;
+      throw error;
+    }
+  },
+  
+    error => {
+      var errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response =>  response.json())
+  .then(data=> dispatch(concatCropshelp(data))) 
+  .catch(error=> dispatch(cropsFailed(error.message)))
+} 
+
+
+export const concatCropshelp = (data)=>({
+  type:ActionTypes.CONCAT_CROPS,
+  payload:data
+})
 
 export const cropsFailed = (errmess) =>({
   type: ActionTypes.CROPS_FAILED,

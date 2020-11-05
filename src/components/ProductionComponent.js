@@ -25,13 +25,11 @@ if (props.production.isLoading) {
             </div>
         );
     }
-    var a = 0
-    const distsdata = props.production.production.map(prod=>{
-        a++;
+    const distsdata = props.production.production.map((prod,ind)=>{
         return(
-            <tr>
+            <tr key = {ind+1}>
                 
-                <th>{a}</th>
+                <th>{ind+1}</th>
                 <td>{prod.year}</td>
                 <td>{prod.amount}</td>
                 <td>{prod.harvest_area}</td>

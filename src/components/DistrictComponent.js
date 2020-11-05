@@ -25,13 +25,12 @@ if (props.districts.isLoading) {
             </div>
         );
     }
-    var a = 0
-    const distsdata = props.districts.districts.map(dist=>{
-        a++;
+    const distsdata = props.districts.districts.map((dist,ind)=>{
+        
         return(
             <tr>
                 
-                <th>{a}</th>
+                <th>{ind+1}</th>
                 <td>{dist.name}</td>
                 <td>{dist.area}</td>
                 <td>{dist.pradesh_no}</td>

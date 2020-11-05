@@ -1,9 +1,19 @@
-import React from 'react';
-import {Table} from 'reactstrap';
+// import userEvent from '@testing-library/user-event';
+import React,{useState} from 'react';
+import { Col, Table, Form, FormGroup,Label, Button, Input, Jumbotron} from 'reactstrap';
 import { Loading } from './LoadingComponent';
 
 function Home(props)  {
-if (props.crops.isLoading) {
+
+    const initialState = {name:'', type:''}
+    const [crop,setCrop] = useState(initialState);
+
+    const handleInputChange = (e)=>{
+        const {name,value} = e.target;
+        setCrop({...crop,[name]:value})
+    }
+
+    if (props.crops.isLoading) {
         console.log("here");
         return(
             <div className="container">
@@ -24,25 +34,64 @@ if (props.crops.isLoading) {
             </div>
         );
     }
-    var a = 0
-    const cropsdata = props.crops.crops.map(crop=>{
-        a++;
+    const cropsdata = props.crops.crops.map((crop,index)=>{
         return(
-            <tr>
+            <tr key = {index+1}>
                 
-                <th>{a}</th>
+                <th>{index+1}</th>
                 <td>{crop.name}</td>
                 <td>{crop.crop_type}</td>
+                <td><button onClick={() => this.editDetails(crop)}>EDIT</button> <button onClick={() => this.deleteEmployee(crop.id)}>DELETE</button> </td> 
             </tr>
             );
         });
     return(
-
-        <div className="container">
-            <div className="col-12">
-            <h3>Crops</h3>
-            <hr />
-            </div>  
+        
+        <div>
+            <Jumbotron>
+                <div className="container">
+                    <div className="row row-header">
+                        <div className="col-12 ">
+                            <h1>Crop Data Repository</h1>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div className="row row-header">
+                        
+                    </div>
+                    
+                    <Form inline onSubmit ={(event)=>{
+                        event.preventDefault();
+                        alert(crop);
+                        if(!crop.name || !crop.type)
+                            return
+                        props.concat(crop);
+                        }}>
+                        <FormGroup>
+                            <Label>Name</Label>
+                            <Col sm={4}>
+                                <Input type="text" name = "name" value={crop.name} onChange={handleInputChange}/>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Crop Type</Label>
+                            <Col sm={4}>
+                                <Input type="text" name = "type" value={crop.type} onChange={handleInputChange}/>
+                            </Col>
+                        </FormGroup>
+                        <Button class="add">App Crop</Button>
+                    </Form>
+                
+                </div>
+                
+            </Jumbotron>
+        <div className = "container">
+            <div className ="row">
+                <div className="col-12">
+                    <h3>Crops</h3>
+                </div>  
+                
+            </div>
             <Table dark>
                 <thead>
                     <tr>
@@ -56,6 +105,7 @@ if (props.crops.isLoading) {
                 </tbody>
             </Table>
         </div>
+    </div>
     );
 }
 

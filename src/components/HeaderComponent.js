@@ -71,16 +71,6 @@ class Header extends Component {
           </Collapse>
         </div>
       </Navbar>
-      <Jumbotron>
-           <div className="container">
-               <div className="row row-header">
-                   <div className="col-12 col-sm-6">
-                       <h1>Crop Data Repository</h1>
-                       <p></p>
-                   </div>
-               </div>
-           </div>
-       </Jumbotron>
 
        <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
