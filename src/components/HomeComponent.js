@@ -1,16 +1,20 @@
 // import userEvent from '@testing-library/user-event';
 import React,{useState} from 'react';
-import { Col, Table, Form, FormGroup,Label, Button, Input, Jumbotron} from 'reactstrap';
+import {  Table, Jumbotron} from 'reactstrap';
 import { Loading } from './LoadingComponent';
+import AddCropForm from './AddCropForm';
+import EditCropForm from './EditCropForm';
 
 function Home(props)  {
 
-    const initialState = {name:'', type:''}
-    const [crop,setCrop] = useState(initialState);
+    const [editing,setEditing] = useState(false);
+    const[currentCrop,setCurrentCrop] = useState({name:'',type:''})
 
-    const handleInputChange = (e)=>{
-        const {name,value} = e.target;
-        setCrop({...crop,[name]:value})
+    const editDetails = (crop)=>{
+        setEditing(true);
+
+        setCurrentCrop({name:crop.name,type:crop.crop_type});
+    
     }
 
     if (props.crops.isLoading) {
@@ -41,7 +45,7 @@ function Home(props)  {
                 <th>{index+1}</th>
                 <td>{crop.name}</td>
                 <td>{crop.crop_type}</td>
-                <td><button onClick={() => this.editDetails(crop)}>EDIT</button> <button onClick={() => this.deleteEmployee(crop.id)}>DELETE</button> </td> 
+                <td><button onClick={() => editDetails(crop)}>EDIT</button> <button onClick={() => this.deleteEmployee(crop.id)}>DELETE</button> </td> 
             </tr>
             );
         });
@@ -60,28 +64,12 @@ function Home(props)  {
                         
                     </div>
                     
-                    <Form inline onSubmit ={(event)=>{
-                        event.preventDefault();
-                        alert(crop);
-                        if(!crop.name || !crop.type)
-                            return
-                        props.concat(crop);
-                        }}>
-                        <FormGroup>
-                            <Label>Name</Label>
-                            <Col sm={4}>
-                                <Input type="text" name = "name" value={crop.name} onChange={handleInputChange}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Crop Type</Label>
-                            <Col sm={4}>
-                                <Input type="text" name = "type" value={crop.type} onChange={handleInputChange}/>
-                            </Col>
-                        </FormGroup>
-                        <Button class="add">App Crop</Button>
-                    </Form>
-                
+                    {editing?
+                        <EditCropForm setEditing={setEditing}
+                        currentCrop={currentCrop}
+                        updateCrop={props.updateCrop} />:
+                        <AddCropForm concate = {props.concat}/>
+                    }
                 </div>
                 
             </Jumbotron>

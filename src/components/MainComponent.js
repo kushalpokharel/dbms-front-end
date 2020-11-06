@@ -5,7 +5,7 @@ import Home from './HomeComponent';
 import District from './DistrictComponent';
 import Production from './ProductionComponent';
 import Header from './HeaderComponent';
-import {fetchCrops,fetchDistricts,fetchProduction,concatCrops} from '../redux/actions';
+import {fetchCrops,fetchDistricts,fetchProduction,concatCrops,updateCrop} from '../redux/actions';
 
 
 const mapDispatchToProps = dispatch =>{
@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch =>{
     fetchProduction: () => dispatch(fetchProduction()),
 
     concatCrops: (crop)=>dispatch(concatCrops(crop)),
+
+    updateCrop : (crop)=>dispatch(updateCrop(crop)),
    }
 }
 
@@ -42,13 +44,14 @@ class Main extends Component{
     // alert(this.props.district);
     this.props.fetchProduction();
   }
-  // var cropsid = 
+
   render(){
 
     const HomePage = ()=>{
       return(
         <Home crops  = {this.props.crops} 
-              concat = {this.props.concatCrops}/>
+              concat = {this.props.concatCrops}
+              updateCrop = {this.props.updateCrop}/>
       )
     }
 

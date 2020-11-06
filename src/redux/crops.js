@@ -17,10 +17,11 @@ export const Crops = (state={
       return{...state, isLoading:true, errMess:null, crops:[]};
     
     case ActionTypes.CONCAT_CROPS:
-      console.log(action.payload);
-      console.log(state.crops);
       return{...state, isLoading:false, errMess:null, crops:state.crops.concat(action.payload)};
 
+    case ActionTypes.UPDATE_CROPS:
+      return{...state, isLoading:false, errMess:null, crops:state.crops.map((crop)=> crop.id===action.payload.id?action.payload:crop)};
+      
     default :
       return state;
   }

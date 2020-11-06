@@ -69,6 +69,39 @@ export const concatCropshelp = (data)=>({
   payload:data
 })
 
+export const updateCrop = (crop)=>(dispatch)=>{
+  const requestOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': "application/json" },
+    body: JSON.stringify({id:crop.id, name: crop.name, crop_type: crop.type })
+  };
+  return fetch(baseUrl+'crop/',requestOptions)
+    .then(response=> {
+      console.log(response);
+      if(response.ok){
+        return response;
+      }
+      else{
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+  
+    error => {
+      var errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response =>  response.json())
+  .then(data=> dispatch(updateCropshelp(data))) 
+  .catch(error=> dispatch(cropsFailed(error.message)))
+}
+
+export const updateCropshelp = (crop)=>({
+  type: ActionTypes.UPDATE_CROPS,
+  payload: crop
+})
+
 export const cropsFailed = (errmess) =>({
   type: ActionTypes.CROPS_FAILED,
   payload: errmess

@@ -3,6 +3,7 @@ export const CROPS_LOADING = 'CROPS_LOADING';
 export const  CROPS_FAILED = 'CROPS_FAILED';
 export const ADD_CROPS = 'ADD_CROPS';
 export const CONCAT_CROPS = 'CONCAT_CROPS';
+export const UPDATE_CROPS = 'UPDATE_CROPS';
 
 export const FETCH_DISTRICTS = 'FETCH_DISTRICTS';
 export const DISTRICTS_LOADING = 'DISTRICTS_LOADING';
