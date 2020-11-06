@@ -35,7 +35,7 @@ export const addCrops =(crop)=>({
 
 export const concatCrops =(crop)=>(dispatch)=>{
   // const csrftoken = Cookies.get('x-csrftoken');
-  dispatch(cropsLoading(true));
+  // dispatch(cropsLoading(true));
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': "application/json" },
