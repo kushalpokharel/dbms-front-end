@@ -22,6 +22,9 @@ export const Crops = (state={
     case ActionTypes.UPDATE_CROPS:
       return{...state, isLoading:false, errMess:null, crops:state.crops.map((crop)=> crop.id===action.payload.id?action.payload:crop)};
       
+    case ActionTypes.DELETE_CROPS:
+      return{...state, isLoading:false, errMess:null, crops:state.crops.filter((crop)=> crop.id!==action.payload.id)};
+      
     default :
       return state;
   }

@@ -17,6 +17,10 @@ function Home(props)  {
     
     }
 
+    const deleteDetails = (crop)=>{
+        props.deleteCrop(crop);
+    }
+
     if (props.crops.isLoading) {
         console.log("here");
         return(
@@ -45,7 +49,7 @@ function Home(props)  {
                 <th>{index+1}</th>
                 <td>{crop.name}</td>
                 <td>{crop.crop_type}</td>
-                <td><button onClick={() => editDetails(crop)}>EDIT</button> <button onClick={() => this.deleteEmployee(crop.id)}>DELETE</button> </td> 
+                <td><button onClick={() => editDetails(crop)}>EDIT</button> <button onClick={() => deleteDetails(crop)}>DELETE</button> </td> 
             </tr>
             );
         });

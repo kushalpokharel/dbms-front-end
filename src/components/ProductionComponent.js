@@ -33,8 +33,8 @@ if (props.production.isLoading) {
                 <td>{prod.year}</td>
                 <td>{prod.amount}</td>
                 <td>{prod.harvest_area}</td>
-                <td>{prod.crop}</td>
-                <td>{prod.district}</td>
+                <td>{prod.crop_name}</td>
+                <td>{prod.district_name}</td>
             </tr>
             );
         });

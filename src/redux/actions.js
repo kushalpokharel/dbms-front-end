@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 import {baseUrl} from './baseurl'
-import {Cookies} from 'js-cookie'
+// import {Cookies} from 'js-cookie'
 
 export const fetchCrops = () => (dispatch)=>{
   dispatch(cropsLoading(true));
@@ -100,6 +100,33 @@ export const updateCrop = (crop)=>(dispatch)=>{
 
 export const updateCropshelp = (crop)=>({
   type: ActionTypes.UPDATE_CROPS,
+  payload: crop
+})
+
+export const deleteCrop = (crop)=>(dispatch)=>{
+  console.log(crop.id)
+  fetch(baseUrl + 'crop/'+crop.id,{method:'DELETE'})
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    // .then(response => response.json())
+    // .then(crop => dispatch(deleteCropshelp(crop)))
+    .catch(error => dispatch(cropsFailed(error.message)));
+    dispatch(deleteCropshelp(crop));
+}
+
+export const deleteCropshelp = (crop)=>({
+  type: ActionTypes.DELETE_CROPS,
   payload: crop
 })
 
