@@ -8,12 +8,12 @@ import EditCropForm from './EditCropForm';
 function Home(props)  {
 
     const [editing,setEditing] = useState(false);
-    const[currentCrop,setCurrentCrop] = useState({name:'',type:''})
+    const[currentCrop,setCurrentCrop] = useState({id:'',name:'',type:''})
 
     const editDetails = (crop)=>{
         setEditing(true);
 
-        setCurrentCrop({name:crop.name,type:crop.crop_type});
+        setCurrentCrop({id: crop.id, name:crop.name,type:crop.crop_type});
     
     }
 
@@ -65,7 +65,8 @@ function Home(props)  {
                     </div>
                     
                     {editing?
-                        <EditCropForm setEditing={setEditing}
+                        <EditCropForm crops = {props.crops}
+                            setEditing={setEditing}
                         currentCrop={currentCrop}
                         updateCrop={props.updateCrop} />:
                         <AddCropForm concate = {props.concat}/>

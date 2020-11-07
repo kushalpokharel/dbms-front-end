@@ -73,9 +73,10 @@ export const updateCrop = (crop)=>(dispatch)=>{
   const requestOptions = {
     method: 'PUT',
     headers: { 'Content-Type': "application/json" },
-    body: JSON.stringify({id:crop.id, name: crop.name, crop_type: crop.type })
+    body: JSON.stringify({name: crop.crop.name, crop_type: crop.crop.type })
   };
-  return fetch(baseUrl+'crop/',requestOptions)
+  console.log(crop.id);
+  return fetch(baseUrl+'crop/'+crop.id,requestOptions)
     .then(response=> {
       console.log(response);
       if(response.ok){

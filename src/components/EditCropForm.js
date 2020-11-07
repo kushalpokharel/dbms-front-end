@@ -23,7 +23,7 @@ const EditCropForm = (props) => {
       alert(crop);
       if(!crop.name || !crop.type)
           return
-      props.updateCrop(crop);
+      props.updateCrop({crop:crop,id:props.currentCrop.id});
       }}>
       <FormGroup>
           <Label>Name</Label>
