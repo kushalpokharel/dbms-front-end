@@ -16,6 +16,8 @@ export const Production = (state={
     case ActionTypes.PRODUCTION_LOADING:
       return{...state, isLoading:true, errMess:null, production:[]};
     
+    case ActionTypes.CONCAT_PRODUCTION:
+      return{...state, isLoading:false, errMess:null, production:state.production.concat(action.payload)};  
     default :
       return state;
   }

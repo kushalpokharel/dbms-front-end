@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes'
 import {baseUrl} from './baseurl'
-// import {Cookies} from 'js-cookie'
+import {Cookies} from 'js-cookie'
 
 export const fetchCrops = () => (dispatch)=>{
   dispatch(cropsLoading(true));
@@ -201,6 +201,45 @@ export const addproduction =(crop)=>({
   type:ActionTypes.ADD_PRODUCTION,
   payload:crop
 });
+
+export const concatProduction =(prod)=>(dispatch)=>{
+  // const csrftoken = Cookies.get('x-csrftoken');
+  // dispatch(cropsLoading(true));
+  console.log('here');
+  const requestOptions = {
+    mode:'cors',
+    method: 'POST',
+    headers: { 'Content-Type': "application/json" },
+    body: JSON.stringify({ crop: prod.crop_name, district: prod.district_name, year:prod.year, amount:prod.amount, harvest_area:prod.harvest_area}),
+    credentials: 'same-origin'
+  };
+  return fetch(baseUrl+'production/',requestOptions)
+  .then(response=> {
+    console.log(response);
+    if(response.ok){
+      return response;
+    }
+    else{
+      var error = new Error('Error ' + response.status + ': ' + response.statusText);
+      error.response = response;
+      throw error;
+    }
+  },
+  
+    error => {
+      var errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response =>  response.json())
+  .then(data=> dispatch(concatProdshelp(data))) 
+  .catch(error=> dispatch(productionFailed(error.message)))
+} 
+
+
+export const concatProdshelp = (data)=>({
+  type:ActionTypes.CONCAT_CROPS,
+  payload:data
+})
 
 export const productionFailed = (errmess) =>({
   type: ActionTypes.PRODUCTION_FAILED,
