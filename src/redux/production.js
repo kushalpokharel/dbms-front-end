@@ -23,6 +23,9 @@ export const Production = (state={
     case ActionTypes.DELETE_PRODUCTION:
       return{...state, isLoading:false, errMess:null, production:state.production.filter((prod)=>action.payload.id!==prod.id)}
 
+    case ActionTypes.UPDATE_PRODUCTION:
+      return{...state, isLoading:false, errMess:null, production:state.production.map((prod)=>action.payload.id===prod.id?action.payload:prod)}
+    
     default :
       return state;
   }

@@ -1,13 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Table, Jumbotron} from 'reactstrap';
 import { Loading } from './LoadingComponent';
 import AddProductionForm from './AddProductionForm';
-// import EditProductionForm from './EditProductionForm';
+import EditProductionForm from './EditProductionForm';
 
 function Production(props)  {
 
-    // const [editing,setEditing] = useState(false);
-    // const[currentCrop,setCurrentProduction] = useState({id:'',name:'',type:''})
+    const [editing,setEditing] = useState(false);
+    const[currentProd,setCurrentProduction] = useState({year:'',amount:'',harvest_area:'',crop_name:'',district_name:''})
+
+    const editDetails = (prod)=>{
+        setEditing(true);
+        setCurrentProduction({id:prod.id,year:prod.year,amount:prod.amount,harvest_area:prod.harvest_area,crop_name:prod.crop_name,district_name:prod.district_name});
+    }
 
     if (props.production.isLoading) {
         console.log("here");
@@ -35,12 +40,12 @@ function Production(props)  {
             <tr key = {ind+1}>
                 
                 <th>{ind+1}</th>
-                <td>{prod.year}</td>
+                <td>{Math.floor(prod.year/100)}-{String(prod.year%100).padStart(2,'0')}</td>
                 <td>{prod.amount}</td>
                 <td>{prod.harvest_area}</td>
                 <td>{prod.crop_name}</td>
                 <td>{prod.district_name}</td>
-                <td><button onClick={() => props.editDetails(prod)}>EDIT</button> <button onClick={() => props.delete(prod)}>DELETE</button> </td> 
+                <td><button onClick={() => editDetails(prod)}>EDIT</button> <button onClick={() => props.delete(prod)}>DELETE</button> </td> 
             </tr>
             );
         });
@@ -57,12 +62,19 @@ function Production(props)  {
             <div className="row row-header">
                 
             </div>
+            {editing?
+            <EditProductionForm crops = {props.crops}
+                districts = {props.districts}   
+                setEditing={setEditing}
+                currentProd={currentProd}
+                update={props.update} />:
+
+            <AddProductionForm concate = {props.concat}
+                crops = {props.crops}
+                districts = {props.districts}/>
+        }
             
-            
-                <AddProductionForm concate = {props.concat}
-                                    crops = {props.crops}
-                                    districts = {props.districts}
-                                    />
+                
     
         </div>
         

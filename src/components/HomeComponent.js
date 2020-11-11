@@ -46,7 +46,7 @@ function Home(props)  {
         return(
             <tr key = {index+1}>
                 
-                <th>{crop.id}</th>
+                <th>{index+1}</th>
                 <td>{crop.name}</td>
                 <td>{crop.crop_type}</td>
                 <td><button onClick={() => editDetails(crop)}>EDIT</button> <button onClick={() => deleteDetails(crop)}>DELETE</button> </td> 

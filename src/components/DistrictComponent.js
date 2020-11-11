@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from 'reactstrap';
+import {Table,Jumbotron} from 'reactstrap';
 import { Loading } from './LoadingComponent';
 
 
@@ -38,7 +38,23 @@ if (props.districts.isLoading) {
             );
         });
     return(
-
+        <div>
+        <Jumbotron>
+            <div className="container">
+                <div className="row row-header">
+                    <div className="col-12 ">
+                        <h1>Crop Data Repository</h1>
+                        <p></p>
+                    </div>
+                </div>
+                <div className="row row-header">
+                    
+                </div>
+                
+               
+            </div>
+            
+        </Jumbotron>
         <div className="container">
             <div className="col-12">
             <h3>Districts</h3>
@@ -58,6 +74,7 @@ if (props.districts.isLoading) {
                 </tbody>
             </Table>
         </div>
+    </div>
     );
 }
 
