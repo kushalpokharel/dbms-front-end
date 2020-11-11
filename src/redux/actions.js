@@ -210,7 +210,7 @@ export const concatProduction =(prod)=>(dispatch)=>{
     mode:'cors',
     method: 'POST',
     headers: { 'Content-Type': "application/json" },
-    body: JSON.stringify({ crop: prod.crop_name, district: prod.district_name, year:prod.year, amount:prod.amount, harvest_area:prod.harvest_area}),
+    body: JSON.stringify({ crop_name: prod.crop_name, district_name: prod.district_name, year:prod.year, amount:prod.amount, harvest_area:prod.harvest_area}),
     credentials: 'same-origin'
   };
   return fetch(baseUrl+'production/',requestOptions)
@@ -237,7 +237,32 @@ export const concatProduction =(prod)=>(dispatch)=>{
 
 
 export const concatProdshelp = (data)=>({
-  type:ActionTypes.CONCAT_CROPS,
+  type:ActionTypes.CONCAT_PRODUCTION,
+  payload:data
+})
+
+export const deleteProduction = (data) => (dispatch)=>{
+  console.log(data.crop_name);
+  fetch(baseUrl + 'production/'+data.id,{method:'DELETE'})
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    .catch(error => dispatch(productionFailed(error.message)));
+    dispatch(deleteProdshelp(data));
+}
+
+export const deleteProdshelp = (data)=>({
+  type:ActionTypes.DELETE_PRODUCTION,
   payload:data
 })
 

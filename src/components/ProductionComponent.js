@@ -40,36 +40,38 @@ function Production(props)  {
                 <td>{prod.harvest_area}</td>
                 <td>{prod.crop_name}</td>
                 <td>{prod.district_name}</td>
-                <td><button onClick={() => props.editDetails(prod)}>EDIT</button> <button onClick={() => props.deleteDetails(prod)}>DELETE</button> </td> 
+                <td><button onClick={() => props.editDetails(prod)}>EDIT</button> <button onClick={() => props.delete(prod)}>DELETE</button> </td> 
             </tr>
             );
         });
     return(
-
+    <div>
+    <Jumbotron>
+        <div className="container">
+            <div className="row row-header">
+                <div className="col-12 ">
+                    <h1>Crop Data Repository</h1>
+                    <p></p>
+                </div>
+            </div>
+            <div className="row row-header">
+                
+            </div>
+            
+            
+                <AddProductionForm concate = {props.concat}
+                                    crops = {props.crops}
+                                    districts = {props.districts}
+                                    />
+    
+        </div>
+        
+    </Jumbotron>
+    
         <div className="container">
             <div className="col-12">
             <h3>Production</h3>
-            <Jumbotron>
-                <div className="container">
-                    <div className="row row-header">
-                        <div className="col-12 ">
-                            <h1>Crop Data Repository</h1>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div className="row row-header">
-                        
-                    </div>
-                    
-                    
-                        <AddProductionForm concate = {props.concat}
-                                            crops = {props.crops}
-                                            districts = {props.districts}
-                                                concate = {props.concat}/>
-            
-                </div>
-                
-            </Jumbotron>
+           
             <hr />
             </div>  
             <Table dark>
@@ -88,6 +90,7 @@ function Production(props)  {
                 </tbody>
             </Table>
         </div>
+    </div>
     );
 }
 

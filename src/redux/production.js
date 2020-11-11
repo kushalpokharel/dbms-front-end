@@ -17,7 +17,12 @@ export const Production = (state={
       return{...state, isLoading:true, errMess:null, production:[]};
     
     case ActionTypes.CONCAT_PRODUCTION:
+      // console.log(action.payload)
       return{...state, isLoading:false, errMess:null, production:state.production.concat(action.payload)};  
+    
+    case ActionTypes.DELETE_PRODUCTION:
+      return{...state, isLoading:false, errMess:null, production:state.production.filter((prod)=>action.payload.id!==prod.id)}
+
     default :
       return state;
   }
