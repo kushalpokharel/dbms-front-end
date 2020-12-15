@@ -1,6 +1,5 @@
 import * as ActionTypes from './ActionTypes'
 import {baseUrl} from './baseurl'
-import {Cookies} from 'js-cookie'
 
 export const fetchCrops = () => (dispatch)=>{
   dispatch(cropsLoading(true));
@@ -210,7 +209,7 @@ export const concatProduction =(prod)=>(dispatch)=>{
     mode:'cors',
     method: 'POST',
     headers: { 'Content-Type': "application/json" },
-    body: JSON.stringify({ crop_name: prod.crop_name, district_name: prod.district_name, year:prod.year, amount:prod.amount, harvest_area:prod.harvest_area}),
+    body: JSON.stringify({ crop_name: prod.crop_name, district_name: prod.district_name, year:prod.year, amount:prod.amount, ph_value:prod.ph_value, climate:prod.climate, harvest_area:prod.harvest_area}),
     credentials: 'same-origin'
   };
   return fetch(baseUrl+'production/',requestOptions)
@@ -246,7 +245,7 @@ export const updateProduction = (prod) => (dispatch)=>{
     mode:'cors',
     method: 'PUT',
     headers: { 'Content-Type': "application/json" },
-    body: JSON.stringify({id:prod.id, crop_name: prod.prod.crop_name, district_name: prod.prod.district_name, year:prod.prod.year, amount:prod.prod.amount, harvest_area:prod.prod.harvest_area}),
+    body: JSON.stringify({id:prod.id, crop_name: prod.prod.crop_name, district_name: prod.prod.district_name, year:prod.prod.year, amount:prod.prod.amount, harvest_area:prod.prod.harvest_area, climate:prod.prod.climate, ph_value:prod.prod.ph_value}),
     credentials: 'same-origin'
   };
   return fetch(baseUrl + 'production/'+prod.id,requestOptions)
@@ -290,8 +289,9 @@ export const deleteProduction = (data) => (dispatch)=>{
             var errmess = new Error(error.message);
             throw errmess;
       })
+    .then(dispatch(deleteProdshelp(data)))
     .catch(error => dispatch(productionFailed(error.message)));
-    dispatch(deleteProdshelp(data));
+    
 }
 
 export const deleteProdshelp = (data)=>({

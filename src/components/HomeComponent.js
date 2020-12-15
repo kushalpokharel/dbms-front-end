@@ -47,7 +47,7 @@ function Home(props)  {
             <tr key = {index+1}>
                 
                 <th>{index+1}</th>
-                <td>{crop.name}</td>
+                <td><img src = {"http://127.0.0.1:8000"+crop.image} width="40" height = "40" ></img>{crop.name}</td>
                 <td>{crop.crop_type}</td>
                 <td><button onClick={() => editDetails(crop)}>EDIT</button> <button onClick={() => deleteDetails(crop)}>DELETE</button> </td> 
             </tr>
@@ -82,6 +82,7 @@ function Home(props)  {
             <div className ="row">
                 <div className="col-12">
                     <h3>Crops</h3>
+                    <hr/>
                 </div>  
                 
             </div>

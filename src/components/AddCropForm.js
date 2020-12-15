@@ -34,6 +34,11 @@ const AddCropForm = (props) => {
               <Input type="text" name = "type" value={crop.type} onChange={handleInputChange}/>
           </Col>
       </FormGroup>
+
+      <FormGroup>
+        
+        {/* <Input type="file" name="image" id="exampleFile" />  */}
+      </FormGroup>
       <Button class="add">Add Crop</Button>
   </Form>
   )

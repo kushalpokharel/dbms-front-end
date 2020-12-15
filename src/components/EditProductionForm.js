@@ -3,7 +3,7 @@ import { Col, Form, FormGroup,Label, Button, Input} from 'reactstrap';
 
 
 const EditProductionForm = (props) => {
-    const initialState = {year:'',amount:'',harvest_area:'',crop_name:'',district_name:''}
+    const initialState = {year:'',amount:'',harvest_area:'',crop_name:'',district_name:'',climate:'',ph_value:''}
     const [prod,setProduction] = useState(initialState);
     
     useEffect(() => {
@@ -28,6 +28,15 @@ const EditProductionForm = (props) => {
         <option key = {ind+1}>{dist.name}</option>
       )
     })
+    const phopt = []
+    for(var i=0; i<14;i++){
+      phopt.push({"val": i+1})
+    }
+    const ph_opt = phopt.map((ph,ind)=>{
+      return(
+        <option key = {ind+1}>{ph["val"]}</option>
+      )
+    })
 
   return (
     <Form inline onSubmit ={(event)=>{
@@ -35,6 +44,7 @@ const EditProductionForm = (props) => {
       
       if(!prod.district_name || !prod.crop_name)
           return
+      console.log(prod)
       if(window.confirm('Are you sure?'))
         props.update({prod:prod,id:props.currentProd.id});
       }}>
@@ -67,12 +77,26 @@ const EditProductionForm = (props) => {
               {districts_opt}
         </Input>
         </Col>
-    </FormGroup>
+      </FormGroup>
 
       <FormGroup>
         <Label>Area</Label>
         <Col sm={4}>
             <Input type="text" name = "harvest_area" value={prod.harvest_area} defaultValue={props.currentProd.harvest_area} onChange={handleInputChange}/>
+        </Col>
+      </FormGroup>
+      <FormGroup>
+              <Label>Climate</Label>
+              <Col sm={4}>
+              <Input type="text" name = "climate" value={prod.climate} defaultValue={props.currentProd.climate} onChange={handleInputChange}/>
+              </Col>
+      </FormGroup>
+      <FormGroup>
+          <Label>pH....</Label>
+          <Col sm={4}>
+          <Input type="select" name = "ph_value" value={prod.ph_value} onChange={handleInputChange}>
+              {ph_opt}
+        </Input>
         </Col>
       </FormGroup>
 
