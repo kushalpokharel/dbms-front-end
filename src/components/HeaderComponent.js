@@ -59,6 +59,9 @@ class Header extends Component {
               <NavItem>
                   <NavLink className="nav-link" to='/production'><span className="fa fa-info fa-lg"></span> Production</NavLink>
               </NavItem>
+              <NavItem>
+                  <NavLink className="nav-link" to='/report'><span className="fa fa-info fa-lg"></span>Reports</NavLink>
+              </NavItem>
               {/* <NavItem>
                   <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
               </NavItem> */}

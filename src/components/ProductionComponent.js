@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {Table, Jumbotron} from 'reactstrap';
 import { Loading } from './LoadingComponent';
-import { Col, Form, FormGroup, Input} from 'reactstrap';
+import { Form, FormGroup, Input} from 'reactstrap';
 import AddProductionForm from './AddProductionForm';
 import EditProductionForm from './EditProductionForm';
 
@@ -12,6 +12,7 @@ function Production(props)  {
     const [searchItem,setSearchItem] = useState({searchTerm:''});
 
     const editDetails = (prod)=>{
+        document.documentElement.scrollTop = 0;
         setEditing(true);
         setCurrentProduction({id:prod.id,year:prod.year,amount:prod.amount,harvest_area:prod.harvest_area,crop_name:prod.crop_name,district_name:prod.district_name, ph_value:prod.ph_value, climate:prod.climate});
     }
@@ -63,7 +64,7 @@ function Production(props)  {
                         <td>{prod.district_name}</td>
                         <td>{prod.ph_value}</td>
                         <td>{prod.climate}</td>
-                        <td><button onClick={() => editDetails(prod)}>EDIT</button> <button onClick={() => props.delete(prod)}>DELETE</button> </td> 
+                        <td><button href = "#" onClick={() => editDetails(prod)}>EDIT</button> <button onClick={() => props.delete(prod)}>DELETE</button> </td> 
                     </tr>
                     );
                 
@@ -119,8 +120,9 @@ function Production(props)  {
                 
                 </Form>
             </div>
-            <hr />
-            </div>  
+            
+            </div> 
+            <hr /> 
             <Table dark>
                 <thead>
                     <tr>

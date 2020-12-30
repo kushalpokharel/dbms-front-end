@@ -5,6 +5,7 @@ import Home from './HomeComponent';
 import District from './DistrictComponent';
 import Production from './ProductionComponent';
 import Header from './HeaderComponent';
+import Report from './ReportComponent';
 import {fetchCrops,fetchDistricts,fetchProduction,concatCrops,updateCrop,deleteCrop,concatProduction,deleteProduction,updateProduction} from '../redux/actions';
 
 
@@ -81,6 +82,14 @@ class Main extends Component{
 
       )
     }
+
+    const ReportPage = ()=>{
+      return( 
+      <Report crops = {this.props.crops}
+              districts = {this.props.district}
+              production = {this.props.production}/>
+      )
+    }
     
     return (
       <div>
@@ -89,6 +98,7 @@ class Main extends Component{
             <Route path='/home' component={HomePage}/>
             <Route path='/districts' component={DistPage}/>
             <Route path='/production' component={ProdPage}/>
+            <Route path='/report' component={ReportPage}/>
             <Redirect to="/home" />
           </Switch>        
       </div>
